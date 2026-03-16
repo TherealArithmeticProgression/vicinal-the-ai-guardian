@@ -1,0 +1,15 @@
+pyproject.toml
+vicinal/__init__.py
+vicinal/_init_.py
+vicinal/client.py
+vicinal/config.py
+vicinal/exceptions.py
+vicinal/guard.py
+vicinal/hooks.py
+vicinal/middleware.py
+vicinal/verdicts.py
+vicinal.egg-info/PKG-INFO
+vicinal.egg-info/SOURCES.txt
+vicinal.egg-info/dependency_links.txt
+vicinal.egg-info/requires.txt
+vicinal.egg-info/top_level.txt

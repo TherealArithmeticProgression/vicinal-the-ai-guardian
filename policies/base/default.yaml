@@ -1,1 +1,40 @@
+# Vicinal default policy
+# All values can be overridden per-deployment via VicinalConfig or a custom policy YAML.
 
+thresholds:
+  # Verdict assignments based on composite threat score [0.0 – 1.0]
+  block_threshold:  0.80   # Score ≥ this → BLOCK (prompt rejected outright)
+  warn_threshold:   0.60   # Score ≥ this → WARN  (prompt flagged, caller decides)
+  redact_threshold: 0.55   # Score ≥ this + PII/exfil category → REDACT
+
+engine:
+  # Whether the context-driven (OCR+RAG) evaluator always runs.
+  # If false, it only runs when zero_resource score ≥ 0.45 or attachments present.
+  always_deep: false
+
+  # Include full multi-turn history in RAG query (catches incremental-jailbreak patterns)
+  full_history: false
+
+  # FAISS index top-k neighbours
+  top_k: 10
+
+  # Sentence-transformers model
+  embedding_model: "all-MiniLM-L6-v2"
+  device: "cpu"
+
+categories:
+  # Per-category severity override (multiplier applied to raw hit score)
+  # Values override CATEGORY_SEVERITY in safety_score.py
+  prompt_injection:   1.0
+  jailbreak:          1.0
+  pii_extraction:     0.9
+  data_exfiltration:  0.9
+  indirect_injection: 0.85
+  social_engineering: 0.75
+  harmful_content:    0.80
+  policy_violation:   0.70
+
+audit:
+  # Telemetry – set to false to disable all logging
+  enabled: true
+  log_level: "WARNING"
